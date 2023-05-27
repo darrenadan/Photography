@@ -275,7 +275,7 @@ input {
 .headline h1{ text-shadow: 2px 2px gray;font-size: var(--big-font-size);   font-weight: 500;font-family: 'Times New Roman', Times, serif, cursive;text-shadow: #f2f2f2; height:auto;}
 .headline p{ font-size: var(--h2-font-size); font-style: italic; margin-bottom: 2rem; color:white;font-weight: 600; font-style:oblique;}
 .pic01 p{color:#333;}
-.pic02 p{color:black;}
+.pic02 p{color:white;}
 
 
 @keyframes cssAnimation {to   { visibility: visible; }}

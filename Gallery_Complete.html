@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--=============== UNICONS ===============-->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet" />
+  <!--=============== CSS ===============-->
+  <style>
+    /*=============== GOOGLE FONTS ===============*/
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    /*=============== VARIABLES CSS ===============*/
+    :root {
+      --header-height: 6rem;
+
+      /*========== Colors ==========*/
+      /* Color mode HSL(hue, saturation, lightness) */
+      --first-color: #e3ca66;
+      --title-color: hsl(0, 0%, 100%);
+      --text-color: hsl(0, 0%, 77%);
+      --body-color: hsl(0, 0%, 6%);
+      --container-color: hsl(0, 0%, 10%);
+      --border-color: hsla(0, 0%, 100%, 0.2);
+
+      /*========== Font and typography ==========*/
+      /*.5rem = 8px | 1rem = 16px ...*/
+      --body-font: 'Poppins', sans-serif;
+      --second-font: 'Montserrat', sans-serif;
+
+      --big-font-size: clamp(2rem, 0.9706rem + 4.7059vw, 4.5rem);
+      --h1-font-size: clamp(1.75rem, 0.9265rem + 3.7647vw, 3.75rem);
+      --h2-font-size: 1.75rem;
+      --h3-font-size: 1.5rem;
+      --normal-font-size: 1.125rem;
+      --small-font-size: 1rem;
+      --smaller-font-size: 0.875rem;
+
+      /*========== Font weight ==========*/
+      --weight-300: 300;
+      --weight-400: 400;
+      --weight-500: 500;
+      --weight-600: 600;
+      --weight-700: 700;
+      --weight-900: 900;
+
+      /*========== Transition ==========*/
+      --transition: cubic-bezier(0.05, 0.2, 0.1, 1);
+
+      /*========== Border Radius ==========*/
+      --radius: 0.5rem;
+
+      /*========== z index ==========*/
+      --z-tooltip: 10;
+      --z-fixed: 100;
+    }
+
+    /* Responsive typography */
+    @media screen and (max-width: 992px) {
+      :root {
+        --header-height: 5rem;
+
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: 0.9375rem;
+        --smaller-font-size: 0.813rem;
+      }
+    }
+
+    /*=============== BASE ===============*/
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    input,
+    textarea,
+    body {
+      color: var(--text-color);
+      font-family: var(--body-font);
+      font-size: var(--normal-font-size);
+      font-weight: var(--weight-300);
+    }
+
+    body {
+      background-color: var(--body-color);
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--title-color);
+      font-weight: var(--weight-700);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    p {
+      line-height: 1.67em;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    textarea,
+    input {
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+
+    /*=============== REUSABLE CSS CLASSES ===============*/
+    #portfolioContainer {
+      margin: auto;
+    }
+
+
+    .container {
+      max-width: 1260px;
+      margin-inline: auto;
+      padding-inline: 0.75rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .section {
+      padding-block: 8rem;
+    }
+
+    .section__title {
+      font-size: var(--h1-font-size);
+      margin-bottom: 1rem;
+    }
+
+    .section__title:not(.about .section__title, .contact .section__title),
+    .section__description {
+      text-align: center;
+    }
+
+    .section__description {
+      max-width: 600px;
+      margin-inline: auto;
+      margin-bottom: 3.75rem;
+    }
+
+    .btn {
+      display: inline-block;
+      color: var(--title-color);
+      background-color: var(--first-color);
+      border: 2px solid var(--first-color);
+      padding: 1rem 2.5rem;
+      border-radius: var(--radius);
+      font-size: var(--small-font-size);
+      font-weight: var(--weight-500);
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: var(--first-color);
+    }
+
+    /*=============== HEADER & NAV ===============*/
+    .header {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--z-fixed);
+    }
+
+    .nav,
+    .nav__list,
+    .nav__socials {
+      display: flex;
+    }
+
+    .nav {
+      height: calc(var(--header-height) + 1.5rem);
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 3.5rem;
+    }
+
+    .nav__logo {
+      color: var(--title-color);
+      font-size: 2.3rem;
+      font-weight: var(--weight-700);
+    }
+
+    .nav__logo span {
+      color: var(--first-color);
+    }
+
+    .nav__list {
+      column-gap: 2rem;
+    }
+
+    .nav__link,
+    .nav__social-link {
+      font-size: var(--small-font-size);
+      color: var(--title-color);
+      transition: all 0.3s var(--transition);
+    }
+
+    .nav__link {
+      font-weight: var(--weight-500);
+    }
+
+    .nav__socials {
+      column-gap: 1.5rem;
+      margin-left: auto;
+    }
+
+    .nav__social-link:hover {
+      color: var(--first-color);
+      transform: translateY(-0.25rem);
+    }
+
+    .nav__link-btn {
+      font-size: var(--smaller-font-size);
+      background-color: transparent;
+      border-color: var(--border-color);
+      padding: 0.625rem 1.25rem;
+    }
+
+    .nav__link-btn:hover {
+      background-color: var(--first-color);
+      border-color: var(--first-color);
+      color: var(--title-color);
+    }
+
+    .nav__toggle,
+    .nav__close {
+      display: none;
+    }
+
+    /* Active link */
+    .active-link,
+    .nav__link:hover {
+      color: var(--first-color);
+    }
+
+    /* Change background header */
+    .scroll-header {
+      position: fixed;
+      background-color: var(--container-color);
+      box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.25);
+      animation: slide-down 0.7s;
+    }
+
+    @keyframes slide-down {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-header .nav {
+      height: var(--header-height);
+    }
+
+    #portfolioHeader {
+      margin: auto;
+    }
+
+    .portfolioHeader h1 {
+      text-align: center;
+      background: white;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 4.5em;
+      font-family: var(--body-font);
+      margin-bottom: 15px;
+    }
+
+    .portfolioHeader p {
+      text-align: center;
+      background: white;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .grid-item {
+      display: inline-block;
+      height: 259px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-align: center;
+      width: 400px;
+      border: 2px solid white;
+    }
+
+    .isotope-pager .pager {
+      display: inline-block;
+    }
+
+    .filters {
+      width: 100%;
+      text-align: center;
+      padding-bottom: 35px;
+      padding-top: 20px;
+
+    }
+
+    .filters ul {
+      list-style: none;
+      padding: 20px 10px;
+      box-shadow: -1px 1px 11px rgba(0, 0, 0, .4);
+      margin: 0 40px;
+      border-radius: 30px;
+      background-color: #232323;
+    }
+
+    .filters li {
+      display: inline-block;
+      padding: 10px 25px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .filters li a {
+      color: #b6b6b6;
+      text-decoration: none;
+    }
+
+    .filters li a:hover {
+      color: #fff;
+    }
+
+    .filters li:hover {
+      box-shadow: -1px 1px 11px rgba(0, 0, 0, .4);
+      border-radius: 15px;
+    }
+
+    .filters li.active a {
+      color: #e3ca66;
+      border: 1px solid #e3ca66;
+      border-radius: 15px;
+      box-shadow: -1px 1px 11px rgba(0, 0, 0, .4);
+      padding: 10px 25px;
+
+    }
+
+
+
+    .isotope-pager a {
+      margin: 6px 1px;
+      display: inline-block;
+      width: 50px;
+      /* height: 60px; */
+      line-height: 31px;
+      color: #b6b6b6;
+      font-weight: 600;
+      transition: 0.3s;
+      /* position: relative; */
+      /* padding-right: 26px; */
+      box-shadow: -1px 1px 11px rgba(0, 0, 0, .1);
+      border-radius: 25px;
+      background-color: #232323;
+      border: .5px solid #e3ca66;
+      text-decoration: none;
+    }
+
+    .isotope-pager a:hover {
+      color: #fff;
+      border: .5px solid #ffeeac;
+      box-shadow: -1px 1px 10px 3px rgba(0, 0, 0, .1);
+    }
+
+    .isotope-pager .active {
+      color: #e3ca66 !important;
+      box-shadow: -1px 1px 10px 5px rgba(0, 0, 0, .1);
+      border-radius: 25px;
+      background-color: #161616;
+      border: 1px dotted #e3ca66;
+    }
+
+    .isotope-pager .prev {
+      border-radius: 30px 0 0 30px;
+    }
+
+    .isotope-pager .next {
+      border-radius: 0 30px 30px 0;
+    }
+
+    .isotope-pager a::before,
+    .isotope-pager a:after {
+      content: "";
+      position: relative;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+    }
+
+    .isotope-pager .num::before,
+    .next::before {
+      border-right: 20px solid #2c3e50;
+      right: 100%;
+    }
+
+    .isotope-pager .num:after,
+    .prev:after {
+      border-right: 20px solid #f1f1f1;
+      right: 0;
+    }
+
+
+
+    .grid-item {
+      transition: transform .25s ease;
+    }
+
+
+    .grid-item:hover {
+      transform: scale(1.02);
+    }
+
+    #portfolio h1 {
+      font-family: var(--body-font);
+    }
+
+    /*=============== BREAKPOINTS ===============*/
+    /* For large devices */
+    @media screen and (max-width: 1200px) {
+      .container {
+        max-width: 960px;
+      }
+
+      .nav__btns {
+        display: none;
+      }
+
+      .home {
+        padding-top: 11rem;
+      }
+
+      .home__container,
+      .about__container {
+        grid-template-columns: 1fr;
+      }
+
+      .home__container {
+        row-gap: 2rem;
+      }
+
+      .home__content {
+        order: 1;
+      }
+
+      .home__img,
+      .about__img {
+        margin-inline: auto;
+      }
+
+      .home__img {
+        border: 0.5rem solid var(--container-color);
+        width: 380px;
+        height: 380px;
+      }
+
+      .about__container {
+        row-gap: 2.5rem;
+      }
+
+      .services__container,
+      .portfolio__container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact__container {
+        column-gap: 2rem;
+      }
+    }
+
+    @media screen and (max-width: 992px) {
+      .container {
+        max-width: 720px;
+      }
+
+      .nav {
+        height: var(--header-height);
+        column-gap: 1.25rem;
+      }
+
+      .nav__logo {
+        font-size: 2rem;
+      }
+
+      .nav__btns,
+      .nav__toggle,
+      .nav__close {
+        display: block;
+      }
+
+      .nav__link-btn {
+        display: none;
+      }
+
+      .nav__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 60vw;
+        height: 100vh;
+        background-color: var(--container-color);
+        padding: 3.5rem;
+        transition: all 0.8s var(--transition);
+      }
+
+      .show-menu {
+        right: 0;
+      }
+
+      .nav__list {
+        flex-direction: column;
+        row-gap: 1.125rem;
+      }
+
+      .nav__close {
+        font-size: 1.5rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .nav__socials {
+        column-gap: 1rem;
+      }
+
+      .nav__toggle {
+        font-size: var(--h2-font-size);
+      }
+
+      .nav__close,
+      .nav__toggle {
+        cursor: pointer;
+      }
+
+      .home {
+        padding-top: 9rem;
+      }
+
+      .home__img {
+        width: 320px;
+        height: 320px;
+      }
+
+      .services__icon {
+        font-size: 2.5rem;
+      }
+
+      .services__title {
+        margin-block: 1.5rem 1rem;
+      }
+
+      .contact__container {
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
+      }
+
+      .contact__content {
+        order: 1;
+      }
+
+      .contact__description {
+        margin-bottom: 2rem;
+      }
+
+      .footer__social-link {
+        font-size: var(--smaller-font-size);
+        width: 36px;
+        height: 36px;
+      }
+
+      .scrollup {
+        width: 42px;
+        height: 42px;
+      }
+
+      .scrollup__icon {
+        font-size: 2rem;
+      }
+    }
+
+    /* For medium devices */
+    @media screen and (max-width: 768px) {
+      .container {
+        max-width: 540px;
+      }
+
+      .home__img {
+        width: 280px;
+        height: 280px;
+      }
+
+      .tabs__btns {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+        column-gap: 1.5rem;
+      }
+
+      .services__container,
+      .portfolio__container,
+      .footer__container {
+        grid-template-columns: 1fr;
+      }
+
+      .footer__container {
+        row-gap: 1.5rem;
+        justify-items: center;
+      }
+
+      .footer__copyright {
+        justify-self: center;
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      .nav__menu {
+        width: 100vw;
+        padding: 2.75rem;
+      }
+
+      .home__img {
+        width: 260px;
+        height: 260px;
+      }
+
+      .services__item {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* For small devices */
+    @media screen and (max-width: 350px) {
+      .home__img {
+        width: 240px;
+        height: 240px;
+      }
+
+      .tabs__description span:last-child {
+        display: inline;
+      }
+
+      .portfolio__data {
+        inset-inline: 1rem;
+        bottom: 1rem;
+      }
+    }
+  </style>
+
+  <title>Portfolio Website</title>
+</head>
+
+<body>
+  <!--=============== HEADER ===============-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo"><span>D</span>arren</a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+    
+
+          <li><a href="https://darrenadan.github.io/DarrenPhotography/#home" class="nav__link active-link">Home</a></li>
+
+          <li><a href="https://darrenadan.github.io/DarrenPhotography/#about" class="nav__link">About</a></li>
+          <li><a href="https://darrenadan.github.io/DarrenPhotography/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="https://darrenadan.github.io/DarrenPhotography/#packages" class="nav__link">Packages</a></li>
+           <li><a href="https://darrenadan.github.io/DarrenPhotography/#testimonials" class="nav__link">Testimonials</a></li>
+            <li><a href="https://darrenadan.github.io/DarrenPhotography/#contact" class="nav__link">Contacts</a></li>
+        </ul>
+
+        <div class="nav__close" id="nav-close">
+          <i class="ui uil-times"></i>
+        </div>
+      </div>
+
+      <div class="nav__btns">
+        <a href="#contact" class="nav__link-btn btn">Call me</a>
+
+        <div class="nav__toggle" id="nav-toggle">
+          <i class="uil uil-bars"></i>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+  <!--title-->
+  <div class="portfolioHeader">
+    <h1>Portfolio</h1>
+    <p>Here are sample of my work for you.</p>
+  </div>
+  <!--title-->
+  <div class="filters filter-button-group">
+    <ul>
+      <li class="active"><a href="javascript:void(0);" data-filter="*">All</a></li>
+      <li><a href="javascript:void(0);" data-filter="car">Models</a></li>
+      <li><a href="javascript:void(0);" data-filter="bike">Wedding</a></li>
+      <li><a href="javascript:void(0);" data-filter="bus">Birthday</a></li>
+
+    </ul>
+  </div>
+  <div id="portfolioContainer" class="isotope">
+
+
+
+
+    <!-- Modelling -->
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/1.jpg">
+        <img src="./assets/Gallery Images/Model Photos/1.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/2.jpg">
+        <img src="./assets/Gallery Images/Model Photos/2.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/3.jpg">
+        <img src="./assets/Gallery Images/Model Photos/3.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/4.jpg">
+        <img src="./assets/Gallery Images/Model Photos/4.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/5.jpg">
+        <img src="./assets/Gallery Images/Model Photos/5.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/6.jpg">
+        <img src="./assets/Gallery Images/Model Photos/6.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/7.jpg">
+        <img src="./assets/Gallery Images/Model Photos/7.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/8.jpg">
+        <img src="./assets/Gallery Images/Model Photos/8.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="car">
+      <a class="popupimg" href="./assets/Gallery Images/Model Photos/9.jpg">
+        <img src="./assets/Gallery Images/Model Photos/9.jpg">
+      </a>
+    </div>
+    <!-- Wedding -->
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/1.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/1.jpg">
+      </a>
+    </div>
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/2.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/2.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/3.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/3.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/4.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/4.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/5.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/5.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/6.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/6.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/7.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/7.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/8.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/8.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bike">
+      <a class="popupimg" href="./assets/Gallery Images/wedding Photos/9.jpg">
+        <img src="./assets/Gallery Images/wedding Photos/9.jpg">
+      </a>
+    </div>
+
+
+
+    <!-- birthday -->
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/1.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/1.jpg">
+      </a>
+    </div>
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/2.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/2.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/3.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/3.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/4.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/4.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/5.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/5.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/6.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/6.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/5.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/5.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/8.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/8.jpg">
+      </a>
+    </div>
+
+
+    <div class="grid-item" data-filter="bus">
+      <a class="popupimg" href="./assets/Gallery Images/Birthday photos/9.jpg">
+        <img src="./assets/Gallery Images/Birthday photos/9.jpg">
+      </a>
+    </div>
+
+
+
+
+
+
+  </div>
+
+  <div class="isotope-pager" style="padding-top: 15px; text-align:center;">
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--=============== EMAIL JS ===============-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js'></script>
+
+  <!--=============== MAIN JS ===============-->
+  <script>
+    /*=============== SHOW MENU ===============*/
+    const navMenu = document.getElementById('nav-menu'),
+      navToggle = document.getElementById('nav-toggle'),
+      navClose = document.getElementById('nav-close');
+
+    /*===== MENU SHOW =====*/
+    /* Validate if constant exists */
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.add('show-menu');
+      });
+    }
+
+    /*===== MENU HIDDEN =====*/
+    /* Validate if constant exists */
+    if (navClose) {
+      navClose.addEventListener('click', () => {
+        navMenu.classList.remove('show-menu');
+      });
+    }
+
+    /*==================== REMOVE MENU MOBILE ====================*/
+    const navLink = document.querySelectorAll('.nav__link');
+
+    function linkAction() {
+      const navMenu = document.getElementById('nav-menu');
+      // when we click on each nav__link, we remove the show-menu class
+      navMenu.classList.remove('show-menu');
+    }
+
+    navLink.forEach((n) => n.addEventListener('click', linkAction));
+
+    /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+    // get all sections that have an id defined
+    const sections = document.querySelectorAll('section[id]');
+
+    // add an event listener listening for scroll
+    window.addEventListener('scroll', navHighlighter);
+
+    function navHighlighter() {
+      // get current scroll position
+      let scrollY = window.pageYOffset;
+      // Now we loop through sections to get height, top and ID values for each
+      sections.forEach((current) => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 10,
+          sectionId = current.getAttribute('id');
+        /* - If our current scroll position enters the space where current section on screen is, add .active class to corresponding navigation link, else remove it
+        - To know which link needs an active class, we use sectionId variable we are getting while looping through sections as an selector */
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          document
+            .querySelector('.nav__menu a[href*=' + sectionId + ']')
+            .classList.add('active-link');
+        } else {
+          document
+            .querySelector('.nav__menu a[href*=' + sectionId + ']')
+            .classList.remove('active-link');
+        }
+      });
+    }
+
+    /*==================== CHANGE BACKGROUND HEADER ====================*/
+    function scrollHeader() {
+      const header = document.getElementById('header');
+      // when the scroll is greater than 80 viewport height, add the scroll-header class to header tag
+      if (this.scrollY >= 80) header.classList.add('scroll-header');
+      else header.classList.remove('scroll-header');
+    }
+
+    window.addEventListener('scroll', scrollHeader);
+
+    /*==================== SHOW SCROLL UP ====================*/
+    function scrollUp() {
+      const scrollUp = document.getElementById('scroll-up');
+      // when the scroll is greater than 350 viewport height, add the show-scroll class to scrool-top class
+      if (this.scrollY >= 350) scrollUp.classList.add('show-scroll');
+      else scrollUp.classList.remove('show-scroll');
+    }
+
+    window.addEventListener('scroll', scrollUp);
+
+    /*==================== ABOUT TABS ====================*/
+    const tabs = document.querySelectorAll('[data-target]'),
+      tabContents = document.querySelectorAll('[data-content]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = document.querySelector(tab.dataset.target);
+
+        tabContents.forEach((tabContent) => {
+          tabContent.classList.remove('tab__active');
+        });
+
+        target.classList.add('tab__active');
+
+        tabs.forEach((tab) => {
+          tab.classList.remove('tab__active');
+        });
+
+        tab.classList.add('tab__active');
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+
+      var itemSelector = '.grid-item';
+
+      var $container = $('#portfolioContainer').isotope({
+        itemSelector: itemSelector,
+        masonry: {
+          columnWidth: itemSelector,
+          isFitWidth: true,
+          gutter: 10
+        }
+      });
+
+      //Ascending order
+      var responsiveIsotope = [
+        [480, 7],
+        [720, 10]
+      ];
+
+      var itemsPerPageDefault = 12;
+      var itemsPerPage = defineItemsPerPage();
+      var currentNumberPages = 1;
+      var currentPage = 1;
+      var currentFilter = '*';
+      var filterAtribute = 'data-filter';
+      var pageAtribute = 'data-page';
+      var pagerClass = 'isotope-pager';
+
+      function changeFilter(selector) {
+        $container.isotope({
+          filter: selector
+        });
+      }
+
+
+      function goToPage(n) {
+        currentPage = n;
+
+        var selector = itemSelector;
+        selector += (currentFilter != '*') ? '[' + filterAtribute + '="' + currentFilter + '"]' : '';
+        selector += '[' + pageAtribute + '="' + currentPage + '"]';
+
+        changeFilter(selector);
+      }
+
+      function defineItemsPerPage() {
+        var pages = itemsPerPageDefault;
+
+        for (var i = 0; i < responsiveIsotope.length; i++) {
+          if ($(window).width() <= responsiveIsotope[i][0]) {
+            pages = responsiveIsotope[i][1];
+            break;
+          }
+
+
+
+        }
+
+        return pages;
+      }
+
+      function setPagination() {
+
+        var SettingsPagesOnItems = function () {
+
+          var itemsLength = $container.children(itemSelector).length;
+
+          var pages = Math.ceil(itemsLength / itemsPerPage);
+          var item = 1;
+          var page = 1;
+          var selector = itemSelector;
+          selector += (currentFilter != '*') ? '[' + filterAtribute + '="' + currentFilter + '"]' : '';
+
+          $container.children(selector).each(function () {
+            if (item > itemsPerPage) {
+              page++;
+              item = 1;
+            }
+            $(this).attr(pageAtribute, page);
+            item++;
+          });
+
+          currentNumberPages = page;
+
+        }();
+
+        var CreatePagers = function () {
+
+          var $isotopePager = ($('.' + pagerClass).length == 0) ? $('<div class="' + pagerClass + '"></div>') : $(
+            '.' + pagerClass);
+
+          $isotopePager.html('');
+
+          for (var i = 0; i < currentNumberPages; i++) {
+            var $pager = $('<a href="javascript:void(0);" class="pager" ' + pageAtribute + '="' + (i + 1) +
+              '"></a>');
+            $pager.html(i + 1);
+
+            $pager.click(function () {
+              var page = $(this).eq(0).attr(pageAtribute);
+              goToPage(page);
+            });
+
+            $pager.appendTo($isotopePager);
+          }
+
+          $container.after($isotopePager);
+
+        }();
+
+      }
+
+      setPagination();
+      goToPage(1);
+
+      //Adicionando Event de Click para as categorias
+      $('.filters a').click(function () {
+        var filter = $(this).attr(filterAtribute);
+        currentFilter = filter;
+
+        setPagination();
+        goToPage(1);
+
+
+      });
+
+      //Evento Responsivo
+      $(window).resize(function () {
+        itemsPerPage = defineItemsPerPage();
+        setPagination();
+      });
+
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+      // filter items on button click
+      $('.filter-button-group').on('click', 'li', function () {
+        var filterValue = $(this).attr('data-filter');
+        $('.grid').isotope({
+          filter: filterValue
+        });
+        $('.filter-button-group li').removeClass('active');
+        $(this).addClass('active');
+      });
+    })
+
+
+    $(document).ready(function () {
+
+      // filter items on button click
+      $('.isotope-pager').on('click', 'a', function () {
+        var filterValue = $(this).attr('data-page');
+
+        $('.isotope-pager a').removeClass('active');
+        $(this).addClass('active');
+      });
+    })
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+      $('.popupimg').magnificPopup({
+        type: 'image',
+        mainClass: 'mfp-with-zoom',
+        gallery: {
+          enabled: true
+        },
+
+        zoom: {
+          enabled: true,
+
+          duration: 300, // duration of the effect, in milliseconds
+          easing: 'ease-in-out', // CSS transition easing function
+
+          opener: function (openerElement) {
+
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+          }
+        }
+
+      });
+
+    });
+  </script>
+</body>
+
+</html>
